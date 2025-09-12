@@ -128,7 +128,7 @@ while running:
     screen.blit(timer,(10,10))
 
     if total_time - elapsed_time <= 0:
-        print(타임아웃)
+        print("타임아웃")
         running = False
 
     # 출력할 글자, alias는 True, 그리고 글자 색상
