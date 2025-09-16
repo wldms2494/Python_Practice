@@ -1,0 +1,38 @@
+[33me3d05d5[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mmaster[m[33m, [m[1;31morigin/master[m[33m)[m 이중 for문 버그 수정. for else를 통해 바깥 for문까지 탈출
+[1mdiff --git a/pygame_project/6_gameover.py b/pygame_project/6_gameover.py[m
+[1mindex c171da0..6a2804c 100644[m
+[1m--- a/pygame_project/6_gameover.py[m
+[1m+++ b/pygame_project/6_gameover.py[m
+[36m@@ -179,7 +179,7 @@[m [mwhile running:[m
+                     ball_height = ball_rect.size[1][m
+ [m
+                     # 나눠진 공 정보[m
+[31m-                    small_ball_rect = ball_images[ball_img_idx+1].get_rect()[m
+[32m+[m[32m                    small_ball_rect = ball_images[ball_img_idx + 1].get_rect()[m
+                     small_ball_width = small_ball_rect[0][m
+                     small_ball_height = small_ball_rect[1][m
+ [m
+[36m@@ -190,8 +190,7 @@[m [mwhile running:[m
+                         "img_idx" : ball_img_idx + 1,[m
+                         "to_x" : -3,[m
+                         "to_y": -6,[m
+[31m-                        "init_spd_y" : ball_speed_y[ball_img_idx+1][m
+[31m-                    })[m
+[32m+[m[32m                        "init_spd_y" : ball_speed_y[ball_img_idx+1]})[m
+                     # 오른쪽으로 튕겨 나가는 작은 공 [m
+                     balls.append({[m
+                         "pos_x" : ball_pos_x + (ball_width / 2) - (small_ball_width / 2),[m
+[36m@@ -199,9 +198,11 @@[m [mwhile running:[m
+                         "img_idx" : ball_img_idx + 1,[m
+                         "to_x" : 3,[m
+                         "to_y": -6,[m
+[31m-                        "init_spd_y" : ball_speed_y[ball_img_idx+1]   [m
+[31m-                    })[m
+[32m+[m[32m                        "init_spd_y" : ball_speed_y[ball_img_idx+1]})[m
+                 break[m
+[32m+[m[32m        else : # 계속 게임을 진행[m
+[32m+[m[32m            continue # 안쪽 for문 조건이 안맞으면 continue. 바깥 for문 수행[m
+[32m+[m[32m        break[m
+     # 충돌된 공 or 무기 없애기[m
+     if ball_to_remove > -1:[m
+         del balls[ball_to_remove][m
