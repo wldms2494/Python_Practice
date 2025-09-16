@@ -1,7 +1,7 @@
 # 코드가 너무 길어 리펙토링 ! 
 
 ########################################기본 초기화  (반드시 해야하는 것들 )##############################################
-# 
+
 import os
 import pygame
 pygame.init() # 초기화 (반드시 필요)
@@ -52,7 +52,7 @@ ball_images = [
     pygame.image.load(os.path.join(image_path,"balloon3.png")),
     pygame.image.load(os.path.join(image_path,"balloon4.png")),
 ]
-    # 공 크기에 따른 최초 스피트 ( 클수록 높게 있음)
+    # 공 크기에 따른 최초 스피드 ( 클수록 높게 있음)
 ball_speed_y = [-18, -15, -12, -9] # index 0, 1, 2, 3에 해당하는 값
     # 공들 정보
 balls = []
@@ -67,6 +67,10 @@ balls.append({
     "init_spd_y" : ball_speed_y[0]  # y 최초 속도
 
 })
+
+    # 사라질 무기, 공 정보 저장 변수
+weapon_to_remove = -1
+ball_to_remove = -1
     # 무기는 한 번에 여러 발 발사 가능
 weapons = []
     # 무기 이동 속도
@@ -127,6 +131,47 @@ while running:
 
 
 # 4. 충돌 처리
+    # 캐릭터 rect 정보 업데이트
+    character_rect = character.get_rect()
+    character_rect.left = character_x_pos
+    character_rect.top = character_y_pos
+
+    for ball_idx, ball_val in enumerate(balls): # enumerate : index 몇번째인지 알려줌
+        ball_pos_x = ball_val["pos_x"] # balls Dictionary 에서 가져오기
+        ball_pos_y = ball_val["pos_y"]
+        ball_img_idx = ball_val["img_idx"]
+        
+        
+        ball_rect = ball_images[ball_img_idx].get_rect() # 공 rect 정보 업데이트
+        ball_rect.left = ball_pos_x
+        ball_rect.top = ball_pos_y
+        if character_rect.colliderect(ball_rect) : 
+            running = False
+            break # for 문 탈출
+        # 공과 무기들 충돌 처리
+        for weapon_idx, weapon_val in enumerate(weapons) :
+            weapon_pos_x = weapon_val[0]
+            weapon_pos_y = weapon_val[1]
+
+            # 무기 rect 정보 업데이트
+            weapon_rect = weapon.get_rect()
+            weapon_rect.left = weapon_pos_x
+            weapon_rect.top = weapon_pos_y
+            # 충돌 체크
+            if weapon_rect.colliderect(ball_rect):
+                weapon_to_remove = weapon_idx # 해당 무기 없애기 위한 값 설정
+                ball_to_remove = ball_idx # 해당 공 없애기 위한 값 설정
+                break
+    # 충돌된 공 or 무기 없애기
+    if ball_to_remove > -1:
+        del balls[ball_to_remove]
+        ball_to_remove = -1
+
+    if weapon_to_remove > -1:
+        del weapons[weapon_to_remove]
+        weapon_to_remove = -1
+
+
 # 5. 화면에 그리기
     screen.blit(background,(0,0))
     for weapon_x_pos, weapon_y_pos in weapons:
