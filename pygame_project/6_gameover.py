@@ -179,7 +179,7 @@ while running:
                     ball_height = ball_rect.size[1]
 
                     # 나눠진 공 정보
-                    small_ball_rect = ball_images[ball_img_idx+1].get_rect()
+                    small_ball_rect = ball_images[ball_img_idx + 1].get_rect()
                     small_ball_width = small_ball_rect[0]
                     small_ball_height = small_ball_rect[1]
 
@@ -190,8 +190,7 @@ while running:
                         "img_idx" : ball_img_idx + 1,
                         "to_x" : -3,
                         "to_y": -6,
-                        "init_spd_y" : ball_speed_y[ball_img_idx+1]
-                    })
+                        "init_spd_y" : ball_speed_y[ball_img_idx+1]})
                     # 오른쪽으로 튕겨 나가는 작은 공 
                     balls.append({
                         "pos_x" : ball_pos_x + (ball_width / 2) - (small_ball_width / 2),
@@ -199,9 +198,11 @@ while running:
                         "img_idx" : ball_img_idx + 1,
                         "to_x" : 3,
                         "to_y": -6,
-                        "init_spd_y" : ball_speed_y[ball_img_idx+1]   
-                    })
+                        "init_spd_y" : ball_speed_y[ball_img_idx+1]})
                 break
+        else : # 계속 게임을 진행
+            continue # 안쪽 for문 조건이 안맞으면 continue. 바깥 for문 수행
+        break
     # 충돌된 공 or 무기 없애기
     if ball_to_remove > -1:
         del balls[ball_to_remove]
