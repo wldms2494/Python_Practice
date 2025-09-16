@@ -202,7 +202,7 @@ while running:
                 break
         else : # 계속 게임을 진행
             continue # 안쪽 for문 조건이 안맞으면 continue. 바깥 for문 수행
-        break
+        break 
     # 충돌된 공 or 무기 없애기
     if ball_to_remove > -1:
         del balls[ball_to_remove]
