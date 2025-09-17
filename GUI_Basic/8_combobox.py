@@ -7,11 +7,11 @@ root.title("Nado GUI")
 root.geometry("640x480") # 가로 x 세로
 
 values = [str(i) +'일' for i in range(1,32)] # 1부터 32까지 숫자를 반환
-combobox = ttk.Combobox(root, height = 5, values=values)
+combobox = ttk.Combobox(root, height = 5, values=values) # state값을 설정하지 않으면 콤보박스에 텍스트 입력이 가능하고 출력도 가능
 combobox.pack()
 combobox.set("카드 결제일")  # 최초 목록 제목 설정
 
-readonly_combobox = ttk.Combobox(root, height = 5, values=values, state="readonly")
+readonly_combobox = ttk.Combobox(root, height = 10, values=values, state="readonly")
 readonly_combobox.current(0) # 0번째 인덱스 값 선택 
 readonly_combobox.pack()
 readonly_combobox.set("카드 결제일")  # 최초 목록 제목 설정

@@ -16,5 +16,5 @@ for i in range(1,32):
     listbox.insert(END, str(i) + "일")
 listbox.pack(side="left")
 
-scrollbar.config(command=listbox.yview)
+scrollbar.config(command=listbox.yview) # listbox는 yscrollcommand를 통해, scrollbar는 config를 통해 서로를 매핑 
 root.mainloop()
